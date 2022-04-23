@@ -53,6 +53,8 @@ end
 #
 # stops = location.nearest_bus_stops
 
+set :bind, '0.0.0.0'
+
 get "/" do
   "Hello, World!"
 end

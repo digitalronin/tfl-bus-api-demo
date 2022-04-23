@@ -9,3 +9,10 @@ shell: .built
 		-w /app \
 		-v $$(pwd):/app \
 		-it $(TAG) bash
+
+server: .built
+	docker run --rm \
+		-w /app \
+		-v $$(pwd):/app \
+		-p 4567:4567 \
+		$(TAG) bin/web.rb
