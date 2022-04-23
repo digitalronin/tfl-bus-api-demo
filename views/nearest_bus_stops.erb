@@ -7,6 +7,7 @@
     var marker = L.marker([lat, lon]);
     var url = `/arrivals/${id}?name=${name}`;
     marker.on("click", () => { window.location = url; });
+    marker.bindTooltip(name).openTooltip();
     marker.addTo(map);
   }
 
