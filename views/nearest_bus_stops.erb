@@ -1,4 +1,22 @@
 <h1>Nearest bus stops</h1>
+
+<div id="map" style="height: 600px"></div>
+
+<script language="javascript">
+  var map = L.map('map').setView([<%= lat %>, <%= lon %>], 17);
+
+  L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    subdomains: ['a','b','c']
+  }).addTo( map );
+
+  map.on("moveend", (e) => {
+    point = map.getCenter();
+    document.getElementById("lat").value = point.lat;
+    document.getElementById("lon").value = point.lng;
+  });
+</script>
+
 <ol>
   <% stops.each do |stop| %>
     <li>

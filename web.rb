@@ -88,7 +88,7 @@ get "/nearest_bus_stops" do
   location = Location.new(params)
   stops = location.nearest_bus_stops
 
-  erb :nearest_bus_stops, locals: { stops: stops }
+  erb :nearest_bus_stops, locals: { lat: location.lat, lon: location.lon, stops: stops }
 end
 
 get "/arrivals/:stop_point_id" do
