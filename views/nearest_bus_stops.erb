@@ -2,6 +2,12 @@
 
 <div id="map" style="height: 600px"></div>
 
+<form action="/nearest_bus_stops">
+  <input type="hidden" name="lat" id="lat" />
+  <input type="hidden" name="lon" id="lon" />
+  <button type="submit">Show bus stops</button>
+</form>
+
 <script language="javascript">
   function addMarker(map, L, id, name ,lat, lon) {
     var marker = L.marker([lat, lon]);
@@ -28,5 +34,3 @@
     addMarker(map, L, "<%= stop.id %>", "<%= stop.name %>", <%= stop.lat %>, <%= stop.lon %>);
   <% end %>
 </script>
-
-<p><a href="/">Back</a></p>
