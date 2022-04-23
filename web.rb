@@ -81,14 +81,14 @@ end
 set :bind, '0.0.0.0'
 
 get "/" do
-  erb :index
+  erb :index, locals: { lat: 51.50784765480182, lon: -0.12795096451290844 } # Trafalgar Square
 end
 
 get "/nearest_bus_stops" do
   location = Location.new(params)
   stops = location.nearest_bus_stops
 
-  erb :nearest_bus_stops, locals: { lat: location.lat, lon: location.lon, stops: stops }
+  erb :index, locals: { lat: location.lat, lon: location.lon, stops: stops }
 end
 
 get "/arrivals/:stop_point_id" do

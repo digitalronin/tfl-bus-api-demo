@@ -1,4 +1,4 @@
-<h1>Find nearest bus stops</h1>
+<h1>Nearest bus stops</h1>
 
 <div id="map" style="height: 600px"></div>
 
@@ -9,11 +9,18 @@
 </form>
 
 <script language="javascript">
-  // Trafalgar Square
-  var lat = 51.50784765480182;
-  var lon = -0.12795096451290844;
-  document.getElementById("lat").value = lat;
+  var lat = <%= lat %>;
+  var lon = <%= lon %>;
   document.getElementById("lon").value = lon;
+  document.getElementById("lat").value = lat;
+
+  function addMarker(map, L, id, name ,lat, lon) {
+    var marker = L.marker([lat, lon]);
+    var url = `/arrivals/${id}?name=${name}`;
+    marker.on("click", () => { window.location = url; });
+    marker.bindTooltip(name).openTooltip();
+    marker.addTo(map);
+  }
 
   var map = L.map('map').setView([lat, lon], 17);
 
@@ -27,4 +34,8 @@
     document.getElementById("lat").value = point.lat;
     document.getElementById("lon").value = point.lng;
   });
+
+  <% defined?(stops) && stops.each do |stop| %>
+    addMarker(map, L, "<%= stop.id %>", "<%= stop.name %>", <%= stop.lat %>, <%= stop.lon %>);
+  <% end %>
 </script>
