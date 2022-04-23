@@ -48,12 +48,6 @@ Let's try "NaptanBusWayPoint"
 
 ## Get a list of bus stops near a location
 
-- Find a location in London using Google Maps. This is the MoJ:
-
-```
-https://www.google.com/maps/place/Crown+Prosecution+Service/@51.5000182,-0.1347679,18.12z/data=!4m13!1m7!3m6!1s0x47d8a00baf21de75:0x52963a5addd52a99!2sLondon,+UK!3b1!8m2!3d51.5072178!4d-0.1275862!3m4!1s0x487604ad27e9798f:0x30d95a1d96fb9489!8m2!3d51.4997698!4d-0.1348891
-```
-
 ```
 curl https://api.tfl.gov.uk/StopPoint/?lat=51.5000182&lon=-0.1347679&stopTypes=NaptanBusWayPoint&radius=1000&modes=bus | jq
 ```
@@ -64,7 +58,17 @@ Returns an empty list - that's not right. Maybe stop type is wrong.
 curl https://api.tfl.gov.uk/StopPoint/?lat=51.5000182&lon=-0.1347679&stopTypes=NaptanPublicBusCoachTram&radius=250&modes=bus | jq
 ```
 
-That looks better, but there's way more information than we need.
+That looks better.
+
+For the rest of the story, see the commit log for this repo.
+
+## Deploying to Heroku
+
+```
+heroku create tfl-bus-api-demo
+heroku stack:set container
+git push heroku main
+```
 
 
 [Transport for London Unified API]: https://api.tfl.gov.uk

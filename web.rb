@@ -6,8 +6,6 @@ require "uri"
 require "time"
 require "sinatra"
 
-require "debug"
-
 class BusStop
   attr_reader :id, :name, :lat, :lon, :distance
 
@@ -79,6 +77,7 @@ end
 # stops = location.nearest_bus_stops
 
 set :bind, '0.0.0.0'
+set :port, ENV["PORT"] || 4567
 
 get "/" do
   erb :index, locals: { lat: 51.50784765480182, lon: -0.12795096451290844 } # Trafalgar Square
