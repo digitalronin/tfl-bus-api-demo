@@ -29,14 +29,4 @@
   <% end %>
 </script>
 
-<ol>
-  <% stops.each do |stop| %>
-    <li>
-      <a href="/arrivals/<%= stop.id %>?name=<%= stop.name %>">
-        <%= stop.name %>
-      </a>
-    </li>
-  <% end %>
-</ol>
-
 <p><a href="/">Back</a></p>
