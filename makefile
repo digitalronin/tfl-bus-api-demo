@@ -15,4 +15,4 @@ server: .built
 		-w /app \
 		-v $$(pwd):/app \
 		-p 4567:4567 \
-		$(TAG) bin/web.rb
+		$(TAG) ./web.rb
