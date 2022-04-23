@@ -3,19 +3,20 @@
 <div id="map" style="height: 600px"></div>
 
 <form action="/nearest_bus_stops">
-  <p>
-    Latitude<br />
-    <input type="text" name="lat" id="lat" />
-  </p>
-  <p>
-    Longitude<br />
-    <input type="text" name="lon" id="lon" />
-  </p>
-  <button type="submit">Search</button>
+  <input type="hidden" name="lat" id="lat" />
+  <input type="hidden" name="lon" id="lon" />
+  <button type="submit">Show bus stops</button>
 </form>
 
 <script language="javascript">
-  var map = L.map('map').setView([51.505, -0.09], 17);
+  // Trafalgar Square
+  var lat = 51.50784765480182;
+  var lon = -0.12795096451290844;
+  document.getElementById("lat").value = lat;
+  document.getElementById("lon").value = lon;
+
+  var map = L.map('map').setView([lat, lon], 17);
+
   L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     subdomains: ['a','b','c']
