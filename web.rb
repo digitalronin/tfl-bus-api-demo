@@ -26,8 +26,8 @@ class Location
   attr_reader :lat, :lon
 
   def initialize(hash)
-    @lat = hash.fetch(:lat)
-    @lon = hash.fetch(:lon)
+    @lat = hash.fetch("lat")
+    @lon = hash.fetch("lon")
   end
 
   def nearest_bus_stops
@@ -57,4 +57,11 @@ set :bind, '0.0.0.0'
 
 get "/" do
   erb :index
+end
+
+get "/nearest_bus_stops" do
+  location = Location.new(params)
+  stops = location.nearest_bus_stops
+
+  erb :nearest_bus_stops, locals: { stops: stops }
 end
