@@ -3,6 +3,8 @@
 require "json"
 require "net/http"
 require "uri"
+require "sinatra"
+
 require "debug"
 
 class BusStop
@@ -44,14 +46,13 @@ class Api
   end
 end
 
-lat = 51.5000182
-lon = -0.1347679
+# lat = 51.5000182
+# lon = -0.1347679
+#
+# location = Location.new({lat: lat, lon: lon})
+#
+# stops = location.nearest_bus_stops
 
-location = Location.new({lat: lat, lon: lon})
-
-stops = location.nearest_bus_stops
-
-debugger
-
-puts "foo"
-
+get "/" do
+  "Hello, World!"
+end

@@ -1,6 +1,6 @@
 TAG := ruby-3.1.2-development
 
-.built:
+.built: Dockerfile Gemfile
 	docker build -t $(TAG) .
 	touch .built
 

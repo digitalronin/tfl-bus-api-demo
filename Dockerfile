@@ -8,5 +8,8 @@ RUN apk add \
 
 WORKDIR /app
 
+COPY Gemfile .
+RUN bundle install
+
 RUN adduser -D $APPUSER
 USER $APPUSER
