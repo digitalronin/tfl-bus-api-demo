@@ -1,7 +1,11 @@
 <h1>Nearest bus stops</h1>
 <ol>
   <% stops.each do |stop| %>
-    <li><%= stop.name %></li>
+    <li>
+      <a href="/arrivals/<%= stop.id %>?name=<%= stop.name %>">
+        <%= stop.name %>
+      </a>
+    </li>
   <% end %>
 </ol>
 

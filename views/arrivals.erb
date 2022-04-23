@@ -1,0 +1,21 @@
+<h1><%= name %>: Arrivals</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Route</th>
+      <th>Destination</th>
+      <th>Expected (minutes)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% arrivals.each do |arrival| %>
+      <tr>
+        <td><%= arrival.line %></td>
+        <td><%= arrival.destination %></td>
+        <td><%= arrival.minutes_from_now.to_i %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p><a href="/">New search</a></p>

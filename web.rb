@@ -3,6 +3,7 @@
 require "json"
 require "net/http"
 require "uri"
+require "time"
 require "sinatra"
 
 require "debug"
@@ -37,12 +38,36 @@ class Location
   end
 end
 
+class Arrival
+  attr_reader :line, :destination, :expected_arrival
+
+  def initialize(hash)
+    @line = hash.fetch("lineName")
+    @destination = hash.fetch("destinationName")
+    @expected_arrival = hash.fetch("expectedArrival")
+  end
+
+  def minutes_from_now
+    seconds = Time.parse(expected_arrival) - Time.now
+    seconds % 60
+  end
+end
+
 class Api
+  BASE_URL = "https://api.tfl.gov.uk"
+
   def self.stop_points(lat:, lon:)
-    url = "https://api.tfl.gov.uk/StopPoint/?lat=#{lat}&lon=#{lon}&stopTypes=NaptanPublicBusCoachTram&radius=250&modes=bus"
+    get_data("#{BASE_URL}/StopPoint/?lat=#{lat}&lon=#{lon}&stopTypes=NaptanPublicBusCoachTram&radius=250&modes=bus")
+      .fetch("stopPoints")
+  end
+
+  def self.arrivals(stop_point_id)
+    get_data("#{BASE_URL}/StopPoint/#{stop_point_id}/Arrivals")
+  end
+
+  def self.get_data(url)
     json = Net::HTTP.get(URI(url))
-    data = JSON.parse(json)
-    data.fetch("stopPoints")
+    JSON.parse(json)
   end
 end
 
@@ -64,4 +89,12 @@ get "/nearest_bus_stops" do
   stops = location.nearest_bus_stops
 
   erb :nearest_bus_stops, locals: { stops: stops }
+end
+
+get "/arrivals/:stop_point_id" do
+  arrivals = Api.arrivals(params["stop_point_id"])
+    .map {|hash| Arrival.new(hash)}
+    .sort {|a, b| a.minutes_from_now <=> b.minutes_from_now}
+
+  erb :arrivals, locals: { arrivals: arrivals, name: params["name"] }
 end
