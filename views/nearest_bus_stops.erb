@@ -3,6 +3,13 @@
 <div id="map" style="height: 600px"></div>
 
 <script language="javascript">
+  function addMarker(map, L, id, name ,lat, lon) {
+    var marker = L.marker([lat, lon]);
+    var url = `/arrivals/${id}?name=${name}`;
+    marker.on("click", () => { window.location = url; });
+    marker.addTo(map);
+  }
+
   var map = L.map('map').setView([<%= lat %>, <%= lon %>], 17);
 
   L.tileLayer( 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -15,6 +22,10 @@
     document.getElementById("lat").value = point.lat;
     document.getElementById("lon").value = point.lng;
   });
+
+  <% stops.each do |stop| %>
+    addMarker(map, L, "<%= stop.id %>", "<%= stop.name %>", <%= stop.lat %>, <%= stop.lon %>);
+  <% end %>
 </script>
 
 <ol>
