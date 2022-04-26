@@ -16,3 +16,6 @@ server: .built
 		-v $$(pwd):/app \
 		-p 4567:4567 \
 		$(TAG) ./web.rb
+
+deploy:
+	git push heroku main
